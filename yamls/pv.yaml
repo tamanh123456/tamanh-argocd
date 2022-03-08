@@ -18,7 +18,7 @@ spec:
       shareName: persistent-volume-tcc-drupal
     nodeStageSecretRef:
       name: tcc-azure-storage-account-secret
-      namespace: default
+      namespace: argocd
   mountOptions:
     - dir_mode=0777
     - file_mode=0777
