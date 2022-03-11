@@ -1,44 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tcc-dev
-  namespace: tcc-dev
+  name: nginx-deployment
+  labels:
+    app: nginx
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
-      app: tcc-dev
+      app: nginx
   template:
     metadata:
       labels:
-        app: tcc-dev
+        app: nginx
     spec:
       containers:
-      - name: tcc-dev
-        image: tamanh/image:tcc-dev
-        #imagePullPolicy: IfNotPresent
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "150m"
+      - name: nginx
+        image: nginx:1.14.2
         ports:
-        - name: http
-          containerPort: 80
-        - name: https
-          containerPort: 443
-        volumeMounts:
-        - name: drupal-data
-          mountPath: /var/www/private-files
-        env:
-          - name: DB_HOST
-            value: "tcc-dev-instance.mysql.database.azure.com"
-          - name: DB_USERNAME
-            value: "tamanh"
-          - name: DB_PASSWORD
-            value: "anhvo@123"
-          - name: DB_DATABASE
-            value: "kd_database"
-      volumes:
-        - name: drupal-data
-          persistentVolumeClaim:
-            claimName: tcc-pvc
+        - containerPort: 80
